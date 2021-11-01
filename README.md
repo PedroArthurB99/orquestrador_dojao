@@ -1,2 +1,2 @@
 # orquestrador_dojao
-Repositório relativo ao projeto de conta digital do Grupo Laranja
+Repositório relativo ao projeto de orquestrador do Grupo Laranja
