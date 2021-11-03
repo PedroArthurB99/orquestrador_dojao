@@ -30,7 +30,6 @@ services:
       MYSQL_ROOT_PASSWORD: ajudazupper
       MYSQL_DATABASE: dojao
       MYSQL_PASSWORD: ajudazupper
-      MYSQL_USER: default
     volumes:
       - "db-data:/var/lib/mysql"
     restart: on-failure

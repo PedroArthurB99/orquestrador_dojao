@@ -2,6 +2,8 @@ package br.com.zupacademy.grupolaranja.orquestrador.controller.contadigital;
 
 import br.com.zupacademy.grupolaranja.orquestrador.exception.ObjetoErroDTO;
 import br.com.zupacademy.grupolaranja.orquestrador.exception.RegraNegocioException;
+import br.com.zupacademy.grupolaranja.orquestrador.service.EmailTopicProducer;
+import br.com.zupacademy.grupolaranja.orquestrador.service.ExtratoTopicProducer;
 import br.com.zupacademy.grupolaranja.orquestrador.servicosexternos.contadigital.ContaDigitalClient;
 import br.com.zupacademy.grupolaranja.orquestrador.servicosexternos.contadigital.OperacaoRequest;
 import feign.FeignException;
@@ -19,16 +21,29 @@ public class OrquestradorContaDigitalController {
     @Autowired
     private ContaDigitalClient contaDigitalClient;
 
+    @Autowired
+    private EmailTopicProducer emailTopicProducer;
+
+    @Autowired
+    private ExtratoTopicProducer extratoTopicProducer;
+
     @PostMapping("/transacao")
     @Transactional
     public void transacao(@RequestBody @Valid TransacaoForm operacaoForm) {
+        ExtratoDto extratoDto;
+        EmaiDto emailDto;
         if (operacaoForm.getTipoTransacaoEnum().equals(TipoTransacaoEnum.DEBITAR)) {
             this.debitar(operacaoForm);
-            this.alimentarTopicos();
+            extratoDto = new ExtratoDto(operacaoForm.getValor(), TipoTransacaoEnum.DEBITAR);
+            emailDto = new EmaiDto("user@com.br", "Voce realizou uma operação de débito no valor de "+operacaoForm.getValor());
+            this.alimentarTopicos(extratoDto, emailDto);
+
         }
         else {
             this.creditar(operacaoForm);
-            this.alimentarTopicos();
+            extratoDto = new ExtratoDto(operacaoForm.getValor(), TipoTransacaoEnum.CREDITAR);
+            emailDto = new EmaiDto("user@com.br", "Voce realizou uma operação de crédito no valor de "+operacaoForm.getValor());
+            this.alimentarTopicos(extratoDto, emailDto);
         }
     }
 
@@ -48,7 +63,9 @@ public class OrquestradorContaDigitalController {
         }
     }
 
-    private void alimentarTopicos() {
+    private void alimentarTopicos(ExtratoDto extrato, EmaiDto email) {
         //preencher aqui a alimentação do kafka com os topicos de extrato e transação
+        extratoTopicProducer.send(extrato.toString());
+        emailTopicProducer.send(email.toString());
     }
 }
