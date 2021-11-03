@@ -1,6 +1,8 @@
 package br.com.zupacademy.grupolaranja.orquestrador.controller.boleto;
 
 import br.com.zupacademy.grupolaranja.orquestrador.controller.contadigital.TransacaoForm;
+import br.com.zupacademy.grupolaranja.orquestrador.estorno.Estorno;
+import br.com.zupacademy.grupolaranja.orquestrador.estorno.EstornoRepository;
 import br.com.zupacademy.grupolaranja.orquestrador.exception.ObjetoErroDTO;
 import br.com.zupacademy.grupolaranja.orquestrador.exception.RegraNegocioException;
 import br.com.zupacademy.grupolaranja.orquestrador.servicosexternos.boleto.BoletoClient;
@@ -23,7 +25,10 @@ import java.math.BigDecimal;
 public class OrquestradorBoletosController {
 
     @Autowired
-    public BoletoClient boletoClient;
+    private EstornoRepository repository;
+
+    @Autowired
+    private BoletoClient boletoClient;
 
     @Autowired
     private ContaDigitalClient contaDigitalClient;
@@ -61,6 +66,7 @@ public class OrquestradorBoletosController {
         try {
             contaDigitalClient.credito(id, new OperacaoRequest(valor));
         } catch (FeignException e) {
+            this.repository.save(new Estorno(id, valor));
             throw new RegraNegocioException(new ObjetoErroDTO("Sua transação não foi concluída.", e.getMessage()));
         }
     }
