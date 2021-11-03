@@ -4,13 +4,24 @@ import br.com.zupacademy.grupolaranja.orquestrador.controller.boleto.BoletoForm;
 
 import java.math.BigDecimal;
 
-public class BoletoRequest {
+public class ObterBoletoRequest {
 
     private String codigoDeBarras;
     private BigDecimal valor;
 
-    public BoletoRequest(BoletoForm boletoForm) {
+    public ObterBoletoRequest() {
+    }
+
+    public ObterBoletoRequest(BoletoForm boletoForm) {
         this.codigoDeBarras = boletoForm.getCodigoDeBarras();
         this.valor = boletoForm.getValor();
+    }
+
+    public String getCodigoDeBarras() {
+        return codigoDeBarras;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
     }
 }

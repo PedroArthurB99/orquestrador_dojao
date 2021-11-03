@@ -1,15 +1,22 @@
 package br.com.zupacademy.grupolaranja.orquestrador.controller.boleto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public class BoletoForm {
 
-    private Long id;
+    @Positive
+    private Long idConta;
+
+    @NotBlank
     private String codigoDeBarras;
+
+    @Positive
     private BigDecimal valor;
 
-    public Long getId() {
-        return id;
+    public Long getIdConta() {
+        return idConta;
     }
 
     public String getCodigoDeBarras() {

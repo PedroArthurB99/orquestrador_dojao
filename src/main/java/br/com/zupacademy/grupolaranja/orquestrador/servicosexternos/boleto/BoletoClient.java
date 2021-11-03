@@ -1,6 +1,7 @@
 package br.com.zupacademy.grupolaranja.orquestrador.servicosexternos.boleto;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -8,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface BoletoClient {
 
     @PostMapping("/pagamento")
-    public void pagarBoleto(@RequestBody BoletoRequest boletoRequest); //Aguardando definição do outro time
+    public void pagarBoleto(@RequestBody PagarBoletoRequest boletoRequest); //Aguardando definição do outro time
+
+    @GetMapping("/valor-atualizado")
+    public BoletoResponse obterBoletoComValorAtualizado(@RequestBody ObterBoletoRequest boletoRequest);
 
 }

@@ -21,7 +21,7 @@ public class TransacaoForm {
     private TipoTransacaoEnum tipoTransacaoEnum;
 
     public TransacaoForm(BoletoForm boletoForm) {
-        this.id = boletoForm.getId();
+        this.id = boletoForm.getIdConta();
         this.valor = boletoForm.getValor();
     }
 
