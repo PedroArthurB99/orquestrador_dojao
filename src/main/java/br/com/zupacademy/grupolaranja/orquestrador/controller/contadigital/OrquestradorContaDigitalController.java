@@ -30,20 +30,20 @@ public class OrquestradorContaDigitalController {
     @PostMapping("/transacao")
     @Transactional
     public void transacao(@RequestBody @Valid TransacaoForm operacaoForm) {
-        ExtratoDto extratoDto;
+        EstornoDto estornoDto;
         EmaiDto emailDto;
         if (operacaoForm.getTipoTransacaoEnum().equals(TipoTransacaoEnum.DEBITAR)) {
             this.debitar(operacaoForm);
-            extratoDto = new ExtratoDto(operacaoForm.getValor(), TipoTransacaoEnum.DEBITAR);
+            estornoDto = new EstornoDto(operacaoForm.getValor(), TipoTransacaoEnum.DEBITAR);
             emailDto = new EmaiDto("user@com.br", "Voce realizou uma operação de débito no valor de "+operacaoForm.getValor());
-            this.alimentarTopicos(extratoDto, emailDto);
+            this.alimentarTopicos(estornoDto, emailDto);
 
         }
         else {
             this.creditar(operacaoForm);
-            extratoDto = new ExtratoDto(operacaoForm.getValor(), TipoTransacaoEnum.CREDITAR);
+            estornoDto = new EstornoDto(operacaoForm.getValor(), TipoTransacaoEnum.CREDITAR);
             emailDto = new EmaiDto("user@com.br", "Voce realizou uma operação de crédito no valor de "+operacaoForm.getValor());
-            this.alimentarTopicos(extratoDto, emailDto);
+            this.alimentarTopicos(estornoDto, emailDto);
         }
     }
 
@@ -63,9 +63,8 @@ public class OrquestradorContaDigitalController {
         }
     }
 
-    private void alimentarTopicos(ExtratoDto extrato, EmaiDto email) {
-        //preencher aqui a alimentação do kafka com os topicos de extrato e transação
-        extratoTopicProducer.send(extrato.toString());
+    private void alimentarTopicos(EstornoDto estornoDto, EmaiDto email) {
+        extratoTopicProducer.send(estornoDto.toString());
         emailTopicProducer.send(email.toString());
     }
 }

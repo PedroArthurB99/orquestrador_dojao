@@ -46,7 +46,7 @@ public class OrquestradorBoletosController {
         this.debitar(boletoForm.getIdConta(), boletoResponse.getValor());
 
         try {
-            this.boletoClient.pagarBoleto(new PagarBoletoRequest(boletoResponse));
+            this.boletoClient.pagarBoleto(boletoResponse.getCodigoDeBarras());
         } catch (FeignException e) {
             this.estornar(boletoForm.getIdConta(), boletoResponse.getValor()); //e se der um erro aqui?
             throw new RegraNegocioException(new ObjetoErroDTO("Sua transação não foi concluída. Estamos estornando o valor",

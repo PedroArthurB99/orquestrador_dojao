@@ -12,8 +12,8 @@ public class BoletoForm {
     @NotBlank
     private String codigoDeBarras;
 
-    @Positive
-    private BigDecimal valor;
+    @NotBlank
+    private String emailCliente;
 
     public Long getIdConta() {
         return idConta;
@@ -23,7 +23,7 @@ public class BoletoForm {
         return codigoDeBarras;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public String getEmailCliente() {
+        return emailCliente;
     }
 }

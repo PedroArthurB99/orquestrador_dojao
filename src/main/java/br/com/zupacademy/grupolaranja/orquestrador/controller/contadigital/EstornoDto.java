@@ -2,11 +2,11 @@ package br.com.zupacademy.grupolaranja.orquestrador.controller.contadigital;
 
 import java.math.BigDecimal;
 
-public class ExtratoDto {
+public class EstornoDto {
     private BigDecimal valor;
     private TipoTransacaoEnum tipoTransacao;
 
-    public ExtratoDto(BigDecimal valor, TipoTransacaoEnum tipoTransacao) {
+    public EstornoDto(BigDecimal valor, TipoTransacaoEnum tipoTransacao) {
         this.valor = valor;
         this.tipoTransacao = tipoTransacao;
     }
