@@ -25,7 +25,7 @@ services:
   bd:
     image: mysql:latest
     ports:
-      - "3309:3306"
+      - "3304:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ajudazupper
       MYSQL_DATABASE: dojao
