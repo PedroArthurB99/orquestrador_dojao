@@ -10,12 +10,14 @@ import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-@RestController("/contas_digitais")
+@RestController
+@RequestMapping("/contas_digitais")
 public class OrquestradorContaDigitalController {
 
     @Autowired
@@ -30,6 +32,7 @@ public class OrquestradorContaDigitalController {
     @PostMapping("/transacao")
     @Transactional
     public void transacao(@RequestBody @Valid TransacaoForm operacaoForm) {
+        System.out.println("teste");
         EstornoDto estornoDto;
         EmaiDto emailDto;
         if (operacaoForm.getTipoTransacaoEnum().equals(TipoTransacaoEnum.DEBITAR)) {

@@ -6,7 +6,7 @@ public class BoletoResponse {
 
     private Long id;
     private String codigoDeBarras;
-    private BigDecimal valor;
+    private BigDecimal valorComJuros;
 
     public Long getId() {
         return id;
@@ -17,6 +17,6 @@ public class BoletoResponse {
     }
 
     public BigDecimal getValor() {
-        return valor;
+        return valorComJuros;
     }
 }

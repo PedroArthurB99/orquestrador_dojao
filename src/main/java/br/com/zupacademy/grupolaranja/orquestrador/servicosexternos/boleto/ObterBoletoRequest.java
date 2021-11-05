@@ -5,7 +5,7 @@ import br.com.zupacademy.grupolaranja.orquestrador.controller.boleto.BoletoForm;
 public class ObterBoletoRequest {
 
     private String codigoDeBarras;
-    private Long clientId;
+    private Long clienteId;
     private String emailDestinatario;
 
     public ObterBoletoRequest() {
@@ -13,7 +13,7 @@ public class ObterBoletoRequest {
 
     public ObterBoletoRequest(BoletoForm boletoForm) {
         this.codigoDeBarras = boletoForm.getCodigoDeBarras();
-        this.clientId = boletoForm.getIdConta();
+        this.clienteId = boletoForm.getIdConta();
         this.emailDestinatario = boletoForm.getEmailCliente();
     }
 
@@ -21,8 +21,8 @@ public class ObterBoletoRequest {
         return codigoDeBarras;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public Long getClienteId() {
+        return clienteId;
     }
 
     public String getEmailDestinatario() {

@@ -5,6 +5,7 @@ import br.com.zupacademy.grupolaranja.orquestrador.controller.boleto.BoletoForm;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
@@ -16,14 +17,9 @@ public class TransacaoForm {
     @Positive
     private BigDecimal valor;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     private TipoTransacaoEnum tipoTransacaoEnum;
-
-    public TransacaoForm(BoletoForm boletoForm) {
-        this.id = boletoForm.getIdConta();
-        this.valor = boletoForm.getValor();
-    }
 
     public Long getId() {
         return id;
